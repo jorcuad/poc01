@@ -7,114 +7,16 @@
 </head>
 
 <body style='margin : 0px; overflow: hidden;'>
-  <h1>jsQR Demo</h1>
-  <a id="githubLink" href="https://github.com/cozmo/jsQR">View documentation on Github</a>
-  <p>Pure JavaScript QR code decoding library.</p>
-  <div id="loadingMessage">🎥 Unable to access video stream (please make sure you have a webcam enabled)</div>
-  <canvas id="canvas" hidden=""></canvas>
-  <div id="output" hidden="">
-    <div id="outputMessage">No QR code detected.</div>
-    <div hidden=""><b>Data:</b> <span id="outputData"></span></div>
-  </div>
-  <script type="text/javascript">
-    AFRAME.registerComponent('autoscale', {
-      schema: {type: 'number', default: 1},
-      init: function () {
-        this.scale();
-        this.el.addEventListener('object3dset', () => this.scale());
-      },
-      scale: function () {
-        const el = this.el;
-        const span = this.data;
-        const mesh = el.getObject3D('mesh');
+<a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false;'>
 
-        if (!mesh) return;
+<a-marker preset='hiro'>
 
-        // Compute bounds.
-        const bbox = new THREE.Box3().setFromObject(mesh);
+<a-box position='0 1 0' material='opacity: 0.5; color: #F70087;'></a-box>
 
-        // Normalize scale.
-        const scale = span / bbox.getSize().length();
-        mesh.scale.set(scale*0.9, scale*1.1, scale);
+</a-marker>
 
-        // Recenter.
-        const offset = bbox.getCenter().multiplyScalar(scale);
-        mesh.position.sub(offset);
-      }
-    });
-  </script>
-  <!--script type="text/javascript">
-    var video = document.createElement("video");
-    var canvasElement = document.getElementById("canvas");
-    var canvas = canvasElement.getContext("2d");
-    var loadingMessage = document.getElementById("loadingMessage");
-    var outputContainer = document.getElementById("output");
-    var outputMessage = document.getElementById("outputMessage");
-    var outputData = document.getElementById("outputData");
+<a-entity camera></a-entity>
 
-    function drawLine(begin, end, color) {
-      canvas.beginPath();
-      canvas.moveTo(begin.x, begin.y);
-      canvas.lineTo(end.x, end.y);
-      canvas.lineWidth = 4;
-      canvas.strokeStyle = color;
-      canvas.stroke();
-    } // Use facingMode: environment to attemt to get the front camera on phones
-    navigator.mediaDevices.getUserMedia({
-      video: {
-        facingMode: "environment"
-      }
-    }).then(function(stream) {
-      video.srcObject = stream;
-      video.setAttribute("playsinline", true); // required to tell iOS safari we don't want fullscreen
-      video.play();
-      requestAnimationFrame(tick);
-    });
-
-    function tick() {
-      loadingMessage.innerText = "⌛ Loading video..."
-      if (video.readyState === video.HAVE_ENOUGH_DATA) {
-        loadingMessage.hidden = true;
-        canvasElement.hidden = false;
-        outputContainer.hidden = false;
-        canvasElement.height = video.videoHeight;
-        canvasElement.width = video.videoWidth;
-        canvas.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
-        var imageData = canvas.getImageData(0, 0, canvasElement.width, canvasElement.height);
-        var code = jsQR(imageData.data, imageData.width, imageData.height, {
-          inversionAttempts: "dontInvert",
-        });
-        if (code) {
-          drawLine(code.location.topLeftCorner, code.location.topRightCorner, "#FF3B58");
-          drawLine(code.location.topRightCorner, code.location.bottomRightCorner, "#FF3B58");
-          drawLine(code.location.bottomRightCorner, code.location.bottomLeftCorner, "#FF3B58");
-          drawLine(code.location.bottomLeftCorner, code.location.topLeftCorner, "#FF3B58");
-          outputMessage.hidden = true;
-          outputData.parentElement.hidden = false;
-          outputData.innerText = code.data;
-          document.getElementById('result').innerText = "Result goes here: " + code.data;
-        } else {
-          outputMessage.hidden = false;
-          outputData.parentElement.hidden = true;
-        }
-      }
-      requestAnimationFrame(tick);
-    }
-  </script-->
-  <!--a-scene embedded arjs>
-    <a-box position='0 0.5 0' material='opacity: 0.5;'></a-box>
-    <a-marker type='hiro'>
-      <a-box position='0 0.5 0' material='color: green;'></a-box>
-    </a-marker>
-    <a-entity camera></a-entity>
-  </a-scene-->
-  <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
-
-  <a-marker id="animated-marker" type='hiro' value='7'>
-      <a-box position='0 0 0' material='color: green;'></a-box>
-  </a-marker>
-
-  <a-entity camera></a-entity>
-  </a-scene>
-  <span id="result" class="result">Result goes here:</span>
+</a-scene>
+  
 </body>
