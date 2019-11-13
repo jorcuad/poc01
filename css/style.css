@@ -1,0 +1,22 @@
+#camera-border {
+  z-index: 999;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border-top: 15em solid black;
+  border-bottom: 15em solid black;
+  border-left: 37em solid black;
+  border-right: 37em solid black;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: block;
+  top: 0;
+  left: 0;
+}
+
+.centered {
+  position: absolute;
+  margin-left: 10%;
+  margin-top: 1%;
+}
