@@ -10,33 +10,6 @@
   display: block;
   top: 0;
   left: 0;
-}
 
-.centered {
-  position: absolute;
-  margin-left: 40%;
-  margin-top: 18%;
-}
-
-img.centered {
-  width: 20%;
-}
-
-body:before, body:after {
-    content: "";
-    position: fixed;
-    background: black;
-    left: 0;
-    right: 0;
-    height: 30%;
-}
-body:before {
-    top: 0;
-}
-body:after {
-    bottom: 0;
-}
-body {
-    border-left: 10px solid #900;
-    border-right: 10px solid #900;
+  background: url("../static/target.png") no-repeat center center;
 }
